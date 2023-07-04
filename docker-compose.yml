@@ -3,10 +3,12 @@ version: '3.1'
 services: 
   db: 
     container_name: webapp-db
-    image: mongo:5.0.16
+    image: mongo:5
+    environment:
+     MONGODB_DATABASE: webapi
     volumes: 
       - './mongo:/data/db'
     ports:
-      - 27029:27017
+      - 27017:27017
     restart: always
     

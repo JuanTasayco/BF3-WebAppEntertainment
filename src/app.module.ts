@@ -11,7 +11,7 @@ import { MoviesModule } from './movies/movies.module';
     ConfigModule.forRoot(),
     AuthModule,
     MoviesModule,
-    MongooseModule.forRoot('mongodb://localhost:27029/webapp-db'),
+    MongooseModule.forRoot('mongodb://localhost:27017/webapp-db'),
     SeedModule,
   ],
 
