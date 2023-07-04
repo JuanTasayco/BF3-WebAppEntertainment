@@ -33,6 +33,7 @@ export class MoviesService {
   async findOne(termino: string) {
     try {
       let movie: CreateMovieDto;
+
       movie = await this.dbMovies.findById({ _id: termino });
 
       if (!movie) {
@@ -40,15 +41,32 @@ export class MoviesService {
       }
 
       if (!movie) throw new BadRequestException('Pelicula no existe');
+
       return movie;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
-    return `This action updates a #${id} movie`;
+  async updateStatusFavorite(id: string, updateMovieDto: UpdateMovieDto) {
+    const movie: Movie = await this.findOne(id);
+
+    try {
+      await this.dbMovies.updateOne(
+        { _id: id },
+        {
+          $set: { isBookmarked: movie.isBookmarked ? false : true },
+          $currentDate: {
+            lastUpdated: true,
+          },
+        },
+      );
+      /* solo para visualmente ver el resultado actual de la propiedad en la response del método */
+      movie.isBookmarked = !movie.isBookmarked;
+      return movie;
+    } catch (error) {
+      return error;
+    }
   }
 
   remove(id: number) {

@@ -18,7 +18,7 @@ export class MoviesController {
 
   @Post('create')
   create(@Body() createMovieDto: CreateMovieDto) {
-    return this.moviesService.create                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (createMovieDto);
+    return this.moviesService.create(createMovieDto);
   }
 
   @Get()
@@ -31,9 +31,12 @@ export class MoviesController {
     return this.moviesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
-    return this.moviesService.update(+id, updateMovieDto);
+  @Patch('favorite/:id')
+  updateStatusFavorite(
+    @Param('id') id: string,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
+    return this.moviesService.updateStatusFavorite(id, updateMovieDto);
   }
 
   @Delete(':id')
