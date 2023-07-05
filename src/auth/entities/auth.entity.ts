@@ -9,7 +9,7 @@ export class Auth {
     })
     email: string;
 
-    @Prop({ requried: true })
+    @Prop({ required: true })
     password: string;
 }
 
